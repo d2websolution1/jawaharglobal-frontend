@@ -4,6 +4,7 @@ import {
   Heart, QrCode, Copy, CheckCircle,
   Shield, Award, Users, Landmark, Smartphone
 } from "lucide-react";
+import donationQr from "../assets/donation-qr.jpg";
 
 const API = import.meta.env.VITE_API_URL || "https://jhawarglobal-backend.onrender.com";
 
@@ -24,13 +25,13 @@ export default function Donate() {
         // ✅ Fallback settings
         setSettings({
           upi_id: "jawaharglobal@upi",
-          qr_code_url: "/assets/qr-code.png",
+          qr_code_url: donationQr,
           bank_account_name: "Sanatani Sewa Foundation",
-          bank_name: "AU Small Finance Bank",
-          bank_account_type: "Current Account",
-          bank_account_number: "2502248577019662",
-          bank_ifsc_code: "AUBL0002485",
-          bank_branch: "Sector 63, Noida",
+          bank_name: "Union Bank of India",
+          bank_account_type: "Savings / Current Account",
+          bank_account_number: "XXXX0530",
+          bank_ifsc_code: "UBIN0530000",
+          bank_branch: "Tughlakabad Extension, New Delhi",
           donation_message: "This donation is eligible for 80G tax exemption.",
         });
       } finally {
@@ -48,10 +49,12 @@ export default function Donate() {
 
   // ✅ Use settings data with fallback
   const upiId = settings?.upi_id || "jawaharglobal@upi";
-  const rawQrUrl = settings?.qr_code_url || "/assets/qr-code.png";
-const qrCodeUrl = rawQrUrl.startsWith("/uploads")
-  ? `${API}${rawQrUrl}`
-  : rawQrUrl;
+  const rawQrUrl = settings?.qr_code_url;
+  const qrCodeUrl = !rawQrUrl || rawQrUrl === "/assets/qr-code.png"
+    ? donationQr
+    : rawQrUrl.startsWith("/uploads")
+    ? `${API}${rawQrUrl}`
+    : rawQrUrl;
   const donationMessage = settings?.donation_message || "This donation is eligible for 80G tax exemption.";
 
   const bankDetails = {
@@ -149,24 +152,17 @@ const qrCodeUrl = rawQrUrl.startsWith("/uploads")
                 Scan & Donate
               </h2>
 
-              <div className="w-full max-w-[280px] mx-auto bg-white border-2 border-gray-200 rounded-xl p-4 flex items-center justify-center">
+              <div className="w-full max-w-[280px] mx-auto bg-white border-2 border-gray-200 rounded-xl p-3 shadow-sm flex items-center justify-center">
                 <img
                   src={qrCodeUrl}
                   alt="UPI QR Code"
-                  className="w-full h-full object-contain"
+                  className="w-full h-auto max-h-[380px] object-contain rounded-lg"
                   onError={(e) => {
-                    e.target.style.display = "none";
-                    document.getElementById("qrFallback").style.display = "flex";
+                    if (e.target.src !== donationQr) {
+                      e.target.src = donationQr;
+                    }
                   }}
                 />
-                <div
-                  id="qrFallback"
-                  className="w-full aspect-square flex items-center justify-center flex-col"
-                  style={{ display: "none" }}
-                >
-                  <QrCode className="w-20 h-20 text-[#0B2545]" />
-                  <span className="text-xs text-gray-400 mt-2">Scan QR Code</span>
-                </div>
               </div>
 
               <p className="text-sm font-semibold text-gray-600 mt-4">Scan using any UPI App</p>

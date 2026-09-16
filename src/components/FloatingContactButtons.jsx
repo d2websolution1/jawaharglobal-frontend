@@ -1,8 +1,8 @@
 import React from "react";
 import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 
-const PHONE_NUMBER = "+919876543210"; // Apna real number daal do
-const WHATSAPP_NUMBER = "919876543210"; // Country code ke saath, bina '+' ke
+const PHONE_NUMBER = "+917838489517";
+const WHATSAPP_NUMBER = "917838489517";
 
 export default function FloatingContactButtons() {
   const whatsappHref = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(

@@ -163,12 +163,12 @@ export default function Footer() {
             <ul className="space-y-4 text-sm text-gray-400">
               <li className="flex items-start gap-3">
                 <MapPin size={17} className="text-[#C62828] mt-0.5 flex-shrink-0" />
-                <span>Saharanpur, Uttar Pradesh – 247001, India</span>
+                <span>RZ-1241, Tughlakabad Extension, New Delhi – 110019</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={17} className="text-[#C62828] flex-shrink-0" />
-                <a href="tel:+919876543210" className="hover:text-white transition-colors">
-                  +91 783-848-9517
+                <a href="tel:+917838489517" className="hover:text-white transition-colors">
+                  +91 78384 89517
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -187,7 +187,7 @@ export default function Footer() {
             </ul>
 
             <a
-              href="https://wa.me/91783-848-9517"
+              href="https://wa.me/917838489517"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-5 inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition"

@@ -35,6 +35,7 @@ export default function AdminCertificateEdit() {
     enrollmentNumber: "",
     email: "",
     photo: null,
+    certificateType: "certificate",
   });
 
   useEffect(() => {
@@ -65,6 +66,7 @@ export default function AdminCertificateEdit() {
         enrollmentNumber: data.enrollmentNumber || "",
         email: data.email || "",
         photo: null,
+        certificateType: data.meta?.certificateType || (data.displayName === 'Diploma' ? 'diploma' : 'certificate') || 'certificate',
       });
       if (data.meta?.photoUrl) {
         setPhotoPreview(data.meta.photoUrl);
@@ -95,9 +97,14 @@ export default function AdminCertificateEdit() {
         enrollmentNo: form.enrollmentNo,
         branchCode: form.branchCode,
         place: form.place,
+        certificateType: form.certificateType,
       };
 
-      // ✅ JSON data bhejo (FormData nahi)
+      if (photoPreview && !photoPreview.startsWith('blob:')) {
+        meta.photoUrl = photoPreview;
+      }
+
+      // ✅ JSON data bhejo
       const data = {
         fullName: form.fullName,
         courseSlug: form.courseSlug,
@@ -109,11 +116,15 @@ export default function AdminCertificateEdit() {
       };
 
       console.log("📡 Sending PUT request to:", `/api/certificates/${id}`);
-      console.log("📡 Data:", data);
-      
-      const response = await adminApi.put(`/api/certificates/${id}`, data);
+      await adminApi.put(`/api/certificates/${id}`, data);
 
-      console.log("✅ Response:", response.data);
+      // ✅ Upload new photo if selected
+      if (form.photo) {
+        const photoData = new FormData();
+        photoData.append("photo", form.photo);
+        await adminApi.post(`/api/admin/certificates/${id}/photo`, photoData);
+      }
+
       setSuccess("Certificate updated successfully!");
       setTimeout(() => navigate("/admin/certificates"), 1500);
     } catch (e) {
@@ -167,6 +178,21 @@ export default function AdminCertificateEdit() {
           )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div>
+              <label className="text-xs font-bold text-gray-600 uppercase tracking-wider flex items-center gap-1">
+                <FileText className="w-3.5 h-3.5" />
+                Document Type *
+              </label>
+              <select
+                value={form.certificateType}
+                onChange={(e) => setForm({ ...form, certificateType: e.target.value })}
+                className="mt-1.5 w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#C62828]/20 focus:border-[#C62828] transition bg-white"
+              >
+                <option value="certificate">Certificate (Certificate of Completion)</option>
+                <option value="diploma">Diploma</option>
+              </select>
+            </div>
+
             <div>
               <label className="text-xs font-bold text-gray-600 uppercase tracking-wider flex items-center gap-1">
                 <User className="w-3.5 h-3.5" />
@@ -343,17 +369,35 @@ export default function AdminCertificateEdit() {
                 <Award className="w-3.5 h-3.5" />
                 Photo
               </label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => setForm({ ...form, photo: e.target.files?.[0] || null })}
-                className="mt-1.5 w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#C62828]/20 focus:border-[#C62828] transition"
-              />
-              {photoPreview && !form.photo && (
-                <p className="mt-1 text-xs text-gray-400">Current photo saved</p>
-              )}
-              {form.photo && (
+              <div className="mt-1.5 flex items-center gap-3">
+                {photoPreview && (
+                  <div className="w-14 h-16 rounded-lg border border-gray-200 overflow-hidden flex-shrink-0 bg-gray-50 shadow-sm">
+                    <img
+                      src={photoPreview.startsWith('http') || photoPreview.startsWith('blob:') || photoPreview.startsWith('data:') ? photoPreview : `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}${photoPreview.startsWith('/') ? '' : '/'}${photoPreview}`}
+                      alt="Student"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0] || null;
+                    setForm({ ...form, photo: file });
+                    if (file) {
+                      setPhotoPreview(URL.createObjectURL(file));
+                    }
+                  }}
+                  className="flex-1 rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#C62828]/20 focus:border-[#C62828] transition"
+                />
+              </div>
+              {form.photo ? (
                 <p className="mt-1 text-xs text-green-600">New photo selected: {form.photo.name}</p>
+              ) : photoPreview ? (
+                <p className="mt-1 text-xs text-gray-500">Current student photo loaded</p>
+              ) : (
+                <p className="mt-1 text-xs text-gray-400">No photo uploaded yet</p>
               )}
             </div>
           </div>

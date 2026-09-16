@@ -89,10 +89,13 @@ const Header = () => {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-2">
             <div className="flex gap-6">
-              <div className="flex items-center gap-2">
+              <a
+                href="tel:+917838489517"
+                className="flex items-center gap-2 hover:text-yellow-400 transition"
+              >
                 <Phone size={16} />
-                +91 9876543210
-              </div>
+                +91 78384 89517
+              </a>
 
               <div className="flex items-center gap-2">
                 <Mail size={16} />

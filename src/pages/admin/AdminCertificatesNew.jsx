@@ -123,9 +123,7 @@ export default function AdminCertificatesNew() {
       formData.append("meta", JSON.stringify(meta));
       if (create.photo) formData.append("photo", create.photo);
 
-      await adminApi.post("/api/admin/certificates", formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      await adminApi.post("/api/admin/certificates", formData);
 
       setNotice(`✅ Certificate created successfully!`);
       
@@ -473,7 +471,7 @@ export default function AdminCertificatesNew() {
                 value={create.place}
                 onChange={(e) => setCreate((c) => ({ ...c, place: e.target.value }))}
                 className="mt-1.5 w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7B1C1C]/20 focus:border-[#7B1C1C] transition"
-                placeholder="e.g. Saharanpur"
+                placeholder="e.g. New Delhi"
               />
             </div>
 

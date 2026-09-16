@@ -18,9 +18,7 @@ export default function AdminCertificates() {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null);
   const [notice, setNotice] = useState(null);
-
-  // ✅ Fixed to "diploma"
-  const certificateType = "diploma";
+  const [docType, setDocType] = useState("certificate");
 
   const [create, setCreate] = useState({
     visitorId: "",
@@ -109,7 +107,7 @@ export default function AdminCertificates() {
         enrollmentNo: create.enrollmentNo,
         branchCode: create.branchCode,
         place: create.place,
-        certificateType: "diploma",
+        certificateType: docType,
       };
 
       const formData = new FormData();
@@ -122,11 +120,9 @@ export default function AdminCertificates() {
       formData.append("meta", JSON.stringify(meta));
       if (create.photo) formData.append("photo", create.photo);
 
-      await adminApi.post("/api/admin/certificates", formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      await adminApi.post("/api/admin/certificates", formData);
 
-      setNotice(`✅ Diploma created successfully!`);
+      setNotice(`✅ ${docType === 'diploma' ? 'Diploma' : 'Certificate'} created successfully!`);
       
       setCreate({
         visitorId: "",
@@ -289,27 +285,41 @@ export default function AdminCertificates() {
         </span>
       }
     >
-      {/* ✅ Fixed Type Display - Only Diploma */}
+      {/* Document Type Switcher */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6">
         <div className="p-4 border-b border-gray-100">
           <div className="flex items-center justify-between flex-wrap gap-3">
             <div className="flex items-center gap-3">
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Type:</span>
-              <span className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg text-sm font-bold">
-                Diploma
-              </span>
+              <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Document Type:</span>
+              <div className="flex items-center gap-2 bg-gray-100 p-1 rounded-xl">
+                <button
+                  type="button"
+                  onClick={() => setDocType("certificate")}
+                  className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+                    docType === "certificate"
+                      ? "bg-[#7B1C1C] text-white shadow-sm"
+                      : "text-gray-600 hover:text-gray-900"
+                  }`}
+                >
+                  Certificate (Completion)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDocType("diploma")}
+                  className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+                    docType === "diploma"
+                      ? "bg-purple-700 text-white shadow-sm"
+                      : "text-gray-600 hover:text-gray-900"
+                  }`}
+                >
+                  Diploma
+                </button>
+              </div>
             </div>
             <div className="flex items-center gap-3">
               <span className="text-xs text-gray-400">
-                ⚡ Changes are automatically saved to Settings
+                ⚡ Generating: <strong>{docType === "diploma" ? "Diploma" : "Certificate of Completion"}</strong>
               </span>
-              <Link
-                to="/admin/settings"
-                className="text-gray-400 hover:text-[#7B1C1C] transition p-1.5 rounded-lg hover:bg-gray-100"
-                title="Change in Settings"
-              >
-                <Settings className="w-4 h-4" />
-              </Link>
             </div>
           </div>
         </div>
@@ -496,7 +506,7 @@ export default function AdminCertificates() {
                 value={create.place}
                 onChange={(e) => setCreate((c) => ({ ...c, place: e.target.value }))}
                 className="mt-1.5 w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7B1C1C]/20 focus:border-[#7B1C1C] transition"
-                placeholder="e.g. Saharanpur"
+                placeholder="e.g. New Delhi"
               />
             </div>
 
@@ -566,7 +576,7 @@ export default function AdminCertificates() {
               ) : (
                 <>
                   <Plus className="w-4 h-4" />
-                  Create Diploma
+                  Create {docType === "diploma" ? "Diploma" : "Certificate"}
                 </>
               )}
             </button>

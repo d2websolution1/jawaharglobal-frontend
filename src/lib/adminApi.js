@@ -29,6 +29,10 @@ adminApi.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+  if (config.data instanceof FormData) {
+    delete config.headers["Content-Type"];
+    delete config.headers["content-type"];
+  }
   console.log(`📤 ${config.method?.toUpperCase()} ${API_BASE}${config.url}`, config.data || '');
   return config;
 });

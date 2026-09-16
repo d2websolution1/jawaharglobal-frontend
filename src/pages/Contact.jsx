@@ -61,8 +61,8 @@ export default function Contact() {
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Phone",
-      details: "+91 98765 43210",
-      link: "tel:+919876543210",
+      details: "+91 78384 89517",
+      link: "tel:+917838489517",
     },
     {
       icon: <Mail className="w-6 h-6" />,
@@ -73,8 +73,8 @@ export default function Contact() {
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Location",
-      details: "Saharanpur, Uttar Pradesh – 247001",
-      link: "#",
+      details: "RZ-1241, Tughlakabad Extension, New Delhi – 110019",
+      link: "https://maps.google.com/?q=RZ-1241+Tughlakabad+Extension+New+Delhi+110019",
     },
     {
       icon: <Clock className="w-6 h-6" />,
@@ -253,7 +253,7 @@ export default function Contact() {
 
                     {/* WhatsApp Button - Direct Chat */}
                     <a
-                      href="https://wa.me/91783-848-9517"
+                      href="https://wa.me/917838489517"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center bg-[#25D366] hover:bg-[#1da851] text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-[#25D366]/30 group"
@@ -375,7 +375,7 @@ export default function Contact() {
                   Get instant support from our team via WhatsApp.
                 </p>
                 <a
-                  href="https://wa.me/91783-848-9517"
+                  href="https://wa.me/917838489517"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1da851] text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-[#25D366]/30 group"
@@ -404,10 +404,10 @@ export default function Contact() {
                   <div className="w-20 h-20 bg-[#F2A93B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <MapPin className="w-10 h-10 text-[#F2A93B]" />
                   </div>
-                  <p className="text-[#0B2545] font-semibold text-lg">Saharanpur, Uttar Pradesh</p>
-                  <p className="text-gray-400 text-sm">India — 247001</p>
+                  <p className="text-[#0B2545] font-semibold text-lg">RZ-1241, Tughlakabad Extension</p>
+                  <p className="text-gray-400 text-sm">New Delhi – 110019, India</p>
                   <a 
-                    href="https://maps.google.com" 
+                    href="https://maps.google.com/?q=RZ-1241+Tughlakabad+Extension+New+Delhi+110019" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 mt-3 text-[#F2A93B] font-semibold text-sm hover:gap-3 transition-all duration-300"
