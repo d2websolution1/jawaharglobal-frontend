@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { getOrCreateVisitorId } from "../lib/visitor";
 
-const API = import.meta.env.VITE_API_URL || "https://jhawarglobal-backend.onrender.com";
+const API = import.meta.env.VITE_API_URL || "https://jawaharglobal-backend.onrender.com";
 
 // ✅ FALLBACK COURSES - only used if API completely fails after retries
 const FALLBACK_COURSES = [

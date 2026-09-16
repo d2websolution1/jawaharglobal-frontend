@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import donationQr from "../assets/donation-qr.jpg";
 
-const API = import.meta.env.VITE_API_URL || "https://jhawarglobal-backend.onrender.com";
+const API = import.meta.env.VITE_API_URL || "https://jawaharglobal-backend.onrender.com";
 
 export default function Donate() {
   const [copiedField, setCopiedField] = useState("");

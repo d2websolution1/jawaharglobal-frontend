@@ -9,7 +9,7 @@ import directorSignature from "../../assets/signatures/director-signature.png";
 import studyCenterSignature from "../../assets/signatures/studycenter-signature.png";
 import { adminApi } from "../../lib/adminApi";
 
-const API = import.meta.env.VITE_API_URL || "https://jhawarglobal-backend.onrender.com";
+const API = import.meta.env.VITE_API_URL || "https://jawaharglobal-backend.onrender.com";
 
 // ── QR Code Component ──
 function QRCodeComponent({ value, size = 76, color = "#14306b" }) {
@@ -267,7 +267,9 @@ function CertCornerRibbon({ corner }) {
 function CertificateView({ certificate, qrValue, printId }) {
   const meta = certificate.meta || {};
   const photoUrl = getPhotoUrl(certificate);
-  const qrCodeUrl = qrValue || `${window.location.origin}/certificates/${certificate.id}`;
+  const targetId = certificate?.certificateNumber || certificate?.id;
+  const baseUrl = typeof window !== "undefined" && window.location.origin ? window.location.origin : "https://jawaharglobal-frontend-4q7wj1eyf-dipak13.vercel.app";
+  const qrCodeUrl = qrValue && qrValue.startsWith("http") ? qrValue : `${baseUrl}/certificates/${targetId}`;
 
   const courseTitle = meta?.courseTitle || certificate?.courseTitle || certificate?.courseSlug || "—";
   const guardianRelation = meta?.guardianRelation || "S/O";
@@ -688,7 +690,9 @@ function CertificateView({ certificate, qrValue, printId }) {
 function DiplomaView({ certificate, qrValue, printId }) {
   const meta = certificate.meta || {};
   const photoUrl = getPhotoUrl(certificate);
-  const qrCodeUrl = qrValue || `${window.location.origin}/certificates/${certificate.id}`;
+  const targetId = certificate?.certificateNumber || certificate?.id;
+  const baseUrl = typeof window !== "undefined" && window.location.origin ? window.location.origin : "https://jawaharglobal-frontend-4q7wj1eyf-dipak13.vercel.app";
+  const qrCodeUrl = qrValue && qrValue.startsWith("http") ? qrValue : `${baseUrl}/certificates/${targetId}`;
 
   const courseTitle = meta?.courseTitle || certificate?.courseTitle || certificate?.courseSlug || "—";
   const guardianRelation = meta?.guardianRelation || "S/O";

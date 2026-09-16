@@ -139,7 +139,7 @@ export default function AdminCertificatePreview() {
 
       <CertificateCard
         certificate={displayCertificate}
-        qrValue={`certificate ${certificate.certificateNumber}`}
+        qrValue={`${typeof window !== 'undefined' ? window.location.origin : ''}/certificates/${certificate.certificateNumber || certificate.id}`}
         printId="certificate-print"
       />
 

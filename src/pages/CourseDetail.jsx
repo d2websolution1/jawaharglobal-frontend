@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const API = import.meta.env.VITE_API_URL || "https://jhawarglobal-backend.onrender.com";
+const API = import.meta.env.VITE_API_URL || "https://jawaharglobal-backend.onrender.com";
 
 export default function CourseDetail() {
   const { slug } = useParams();

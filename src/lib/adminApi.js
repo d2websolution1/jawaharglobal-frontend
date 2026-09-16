@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_BASE = import.meta.env.VITE_API_URL || "https://jhawarglobal-backend.onrender.com";
+export const API_BASE = import.meta.env.VITE_API_URL || "https://jawaharglobal-backend.onrender.com";
 
 export function getAdminToken() {
   return localStorage.getItem("admin_token");
@@ -13,8 +13,12 @@ export function setAdminToken(token) {
 
 export function resolveMediaUrl(url) {
   if (!url) return "";
-  if (/^https?:\/\//i.test(url)) return url;
-  return `${API_BASE}${url.startsWith("/") ? "" : "/"}${url}`;
+  const str = String(url).trim();
+  if (!str) return "";
+  if (/^https?:\/\//i.test(str) || str.startsWith("data:") || str.startsWith("blob:")) {
+    return str;
+  }
+  return `${API_BASE}${str.startsWith("/") ? "" : "/"}${str}`;
 }
 
 export const adminApi = axios.create({

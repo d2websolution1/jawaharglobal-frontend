@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import BlogCard from "./BlogCard";
 import { getOrCreateVisitorId } from "../../lib/visitor";
 
-const API = import.meta.env.VITE_API_URL || "https://jhawarglobal-backend.onrender.com";
+const API = import.meta.env.VITE_API_URL || "https://jawaharglobal-backend.onrender.com";
 
 const BLOG_DATE_LABELS = [
   "Updated this week",

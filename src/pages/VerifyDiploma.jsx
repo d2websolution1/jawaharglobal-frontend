@@ -6,7 +6,7 @@ import {
   QrCode, Copy, Check
 } from "lucide-react";
 
-const API = import.meta.env.VITE_API_URL || "https://jhawarglobal-backend.onrender.com";
+const API = import.meta.env.VITE_API_URL || "https://jawaharglobal-backend.onrender.com";
 
 export default function VerifyDiploma() {
   const [certificateId, setCertificateId] = useState("");

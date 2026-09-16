@@ -6,7 +6,7 @@ import msmeLogo from "../assets/logos/msme.jpg";
 import isoLogo from "../assets/logos/iso.jpg";
 import skillLogo from "../assets/logos/startupindia.png";
 
-const API = import.meta.env.VITE_API_URL || "https://jhawarglobal-backend.onrender.com";
+const API = import.meta.env.VITE_API_URL || "https://jawaharglobal-backend.onrender.com";
 
 // ─── FALLBACK DATA ─────────────────────────────────────────────
 const FALLBACK_COURSES = [

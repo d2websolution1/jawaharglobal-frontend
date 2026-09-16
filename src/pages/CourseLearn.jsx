@@ -11,7 +11,7 @@ import {
   Building, Mail, Phone, MapPin, MessageCircle, AlertCircle
 } from "lucide-react";
 
-const API = import.meta.env.VITE_API_URL || "https://jhawarglobal-backend.onrender.com";
+const API = import.meta.env.VITE_API_URL || "https://jawaharglobal-backend.onrender.com";
 
 // ✅ SINGLE FALLBACK IMAGE FOR ALL COURSES
 const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=500&auto=format&fit=crop&q=60";

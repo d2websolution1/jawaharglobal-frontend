@@ -860,14 +860,25 @@ export default function AdminCertificatesNew() {
                   return (
                     <tr key={c.id} className={`border-t border-gray-100 hover:bg-[#7B1C1C]/5 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
                       <td className="p-4">
-                        <div className="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 overflow-hidden flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 overflow-hidden flex items-center justify-center relative">
                           {photo ? (
-                            <img src={photo} alt={c.fullName} className="w-full h-full object-cover" />
-                          ) : (
-                            <span className="text-xs font-bold text-gray-400">
-                              {(c.fullName || "?").charAt(0).toUpperCase()}
-                            </span>
-                          )}
+                            <img
+                              src={photo}
+                              alt={c.fullName}
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                e.currentTarget.style.display = "none";
+                                const fallback = e.currentTarget.parentElement?.querySelector(".avatar-fallback");
+                                if (fallback) fallback.style.display = "flex";
+                              }}
+                            />
+                          ) : null}
+                          <span
+                            className="avatar-fallback text-xs font-bold text-gray-500 uppercase items-center justify-center w-full h-full bg-gray-100"
+                            style={{ display: photo ? "none" : "flex" }}
+                          >
+                            {(c.fullName || "?").charAt(0).toUpperCase()}
+                          </span>
                         </div>
                       </td>
                       <td className="p-4 font-mono text-xs text-gray-700">{c.certificateNumber}</td>

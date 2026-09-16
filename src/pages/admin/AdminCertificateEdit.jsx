@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { adminApi } from "../../lib/adminApi";
+import { adminApi, resolveMediaUrl } from "../../lib/adminApi";
 import AdminLayout from "../../components/admin/AdminLayout";
 import { 
   Save, ArrowLeft, Loader2, AlertCircle, CheckCircle,
@@ -371,11 +371,12 @@ export default function AdminCertificateEdit() {
               </label>
               <div className="mt-1.5 flex items-center gap-3">
                 {photoPreview && (
-                  <div className="w-14 h-16 rounded-lg border border-gray-200 overflow-hidden flex-shrink-0 bg-gray-50 shadow-sm">
+                  <div className="w-14 h-16 rounded-lg border border-gray-200 overflow-hidden flex-shrink-0 bg-gray-50 shadow-sm flex items-center justify-center">
                     <img
-                      src={photoPreview.startsWith('http') || photoPreview.startsWith('blob:') || photoPreview.startsWith('data:') ? photoPreview : `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}${photoPreview.startsWith('/') ? '' : '/'}${photoPreview}`}
+                      src={resolveMediaUrl(photoPreview)}
                       alt="Student"
                       className="w-full h-full object-cover"
+                      onError={(e) => { e.currentTarget.style.display = 'none'; }}
                     />
                   </div>
                 )}
