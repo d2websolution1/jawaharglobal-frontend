@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Heart, QrCode, Copy, CheckCircle,
-  Shield, Award, Users, Landmark, Smartphone
+  Shield, Award, Users, Smartphone
 } from "lucide-react";
 import donationQr from "../assets/donation-qr.jpg";
 
 const API = import.meta.env.VITE_API_URL || "https://jawaharglobal-backend.onrender.com";
 
 export default function Donate() {
-  const [copiedField, setCopiedField] = useState("");
   const [settings, setSettings] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -26,12 +25,6 @@ export default function Donate() {
         setSettings({
           upi_id: "jawaharglobal@upi",
           qr_code_url: donationQr,
-          bank_account_name: "Sanatani Sewa Foundation",
-          bank_name: "Union Bank of India",
-          bank_account_type: "Savings / Current Account",
-          bank_account_number: "XXXX0530",
-          bank_ifsc_code: "UBIN0530000",
-          bank_branch: "Tughlakabad Extension, New Delhi",
           donation_message: "This donation is eligible for 80G tax exemption.",
         });
       } finally {
@@ -40,6 +33,8 @@ export default function Donate() {
     };
     fetchSettings();
   }, []);
+
+  const [copiedField, setCopiedField] = useState("");
 
   const handleCopy = (value, field) => {
     navigator.clipboard.writeText(value);
@@ -56,15 +51,6 @@ export default function Donate() {
     ? `${API}${rawQrUrl}`
     : rawQrUrl;
   const donationMessage = settings?.donation_message || "This donation is eligible for 80G tax exemption.";
-
-  const bankDetails = {
-    accountName: settings?.bank_account_name || "Sanatani Sewa Foundation",
-    bankName: settings?.bank_name || "AU Small Finance Bank",
-    accountType: settings?.bank_account_type || "Current Account",
-    accountNumber: settings?.bank_account_number || "2502248577019662",
-    ifscCode: settings?.bank_ifsc_code || "AUBL0002485",
-    branch: settings?.bank_branch || "Sector 63, Noida",
-  };
 
   const stats = [
     { number: "4500+", label: "Students Supported" },
@@ -141,18 +127,18 @@ export default function Donate() {
         </div>
       </section>
 
-      {/* QR + Bank Details Section */}
+      {/* QR Code Section */}
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="max-w-md mx-auto">
             {/* Scan & Donate */}
             <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 text-center">
               <h2 className="text-xl font-sora font-bold text-[#0B2545] flex items-center justify-center gap-2 mb-6">
                 <QrCode className="w-6 h-6 text-[#F2A93B]" />
-                Scan & Donate
+                Scan &amp; Donate
               </h2>
 
-              <div className="w-full max-w-[280px] mx-auto bg-white border-2 border-gray-200 rounded-xl p-3 shadow-sm flex items-center justify-center">
+              <div className="w-full max-w-[300px] mx-auto bg-white border-2 border-gray-200 rounded-xl p-3 shadow-sm flex items-center justify-center">
                 <img
                   src={qrCodeUrl}
                   alt="UPI QR Code"
@@ -194,48 +180,8 @@ export default function Donate() {
                   )}
                 </button>
               </div>
-            </div>
 
-            {/* Bank Account Details */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8">
-              <h2 className="text-xl font-sora font-bold text-[#0B2545] flex items-center gap-2 mb-2">
-                <Landmark className="w-6 h-6 text-[#F2A93B]" />
-                Bank Account Details
-              </h2>
-              <p className="text-gray-500 text-sm mb-6">
-                You can make a direct bank transfer using the official details below:
-              </p>
-
-              <div className="space-y-4">
-                {[
-                  { label: "Account Name", value: bankDetails.accountName, field: "accountName" },
-                  { label: "Bank Name", value: bankDetails.bankName, field: "bankName" },
-                  { label: "Account Type", value: bankDetails.accountType, field: "accountType" },
-                  { label: "Account Number", value: bankDetails.accountNumber, field: "accountNumber" },
-                  { label: "IFSC Code", value: bankDetails.ifscCode, field: "ifscCode" },
-                  { label: "Branch", value: bankDetails.branch, field: "branch" },
-                ].map((row) => (
-                  <div key={row.field} className="flex items-center justify-between border-b border-gray-100 pb-3 last:border-0 last:pb-0">
-                    <span className="text-sm text-gray-500">{row.label}</span>
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold text-[#0B2545] text-sm">{row.value}</span>
-                      <button
-                        onClick={() => handleCopy(row.value, row.field)}
-                        className="text-[#C62828] hover:text-[#8E0000] transition"
-                        aria-label={`Copy ${row.label}`}
-                      >
-                        {copiedField === row.field ? (
-                          <CheckCircle className="w-4 h-4" />
-                        ) : (
-                          <Copy className="w-4 h-4" />
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-6 bg-[#F2A93B]/10 border border-[#F2A93B]/20 rounded-xl p-3 text-center">
+              <div className="mt-5 bg-[#F2A93B]/10 border border-[#F2A93B]/20 rounded-xl p-3">
                 <p className="text-xs text-[#0B2545] font-medium">
                   🔒 {donationMessage}
                 </p>
