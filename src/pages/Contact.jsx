@@ -67,8 +67,8 @@ export default function Contact() {
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email",
-      details: "info@jawaharglobalfoundation.org",
-      link: "mailto:info@jawaharglobalfoundation.org",
+      details: "info@jawaharglobalfoundation.in",
+      link: "mailto:info@jawaharglobalfoundation.in",
     },
     {
       icon: <MapPin className="w-6 h-6" />,

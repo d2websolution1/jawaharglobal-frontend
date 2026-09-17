@@ -25,7 +25,7 @@ const programs = [
   { label: "Parlour Skills", to: "/parlour" },
   { label: "Electrician Trade", to: "/electrician" },
   { label: "Mechanic Trade", to: "/machanic" },
-  { label: "Verify Diploma", to: "/Diplomas" },
+  { label: "Verify Diploma / Certificate", to: "/verify-diploma" },
 ];
 
 const socials = [
@@ -174,10 +174,10 @@ export default function Footer() {
               <li className="flex items-center gap-3">
                 <Mail size={17} className="text-[#C62828] flex-shrink-0" />
                 <a
-                  href="mailto:info@jawaharglobalfoundation.org"
+                  href="mailto:info@jawaharglobalfoundation.in"
                   className="hover:text-white transition-colors break-all"
                 >
-                  info@jawaharglobalfoundation.org
+                  info@jawaharglobalfoundation.in
                 </a>
               </li>
               <li className="flex items-start gap-3">
@@ -211,8 +211,8 @@ export default function Footer() {
               Terms &amp; Conditions
             </Link>
             <span className="text-gray-700">|</span>
-            <Link to="/Diplomas" className="hover:text-white transition-colors">
-              Verify Diploma
+            <Link to="/verify-diploma" className="hover:text-white transition-colors">
+              Verify Diploma / Certificate
             </Link>
           </div>
         </div>

@@ -431,7 +431,7 @@ function CertificateView({ certificate, qrValue, printId }) {
                 Skill Development &amp; Vocational Training Institute
               </p>
               <p style={{ fontSize: 11.5, color: "#0B2545", fontStyle: "italic", fontWeight: 600, lineHeight: 1.5 }}>
-                Reg. Office: RZ-1241, Tughlakabad Extension, New Delhi - 110019 &nbsp;|&nbsp; Email: info@jawaharglobalfoundation.org &nbsp;|&nbsp; Contact: +91 78384 89517
+                Reg. Office: RZ-1241, Tughlakabad Extension, New Delhi - 110019 &nbsp;|&nbsp; Email: info@jawaharglobalfoundation.in &nbsp;|&nbsp; Contact: +91 78384 89517
               </p>
             </div>
 
@@ -831,7 +831,7 @@ function DiplomaView({ certificate, qrValue, printId }) {
                 Skill Development &amp; Vocational Training Institute
               </p>
               <p style={{ fontSize: 11.5, color: "#14306b", fontStyle: "italic", fontWeight: 600, lineHeight: 1.5 }}>
-                Reg. Office: RZ-1241, Tughlakabad Extension, New Delhi - 110019 &nbsp;|&nbsp; Email: info@jawaharglobalfoundation.org &nbsp;|&nbsp; Contact: +91 78384 89517
+                Reg. Office: RZ-1241, Tughlakabad Extension, New Delhi - 110019 &nbsp;|&nbsp; Email: info@jawaharglobalfoundation.in &nbsp;|&nbsp; Contact: +91 78384 89517
               </p>
             </div>
 
@@ -848,7 +848,7 @@ function DiplomaView({ certificate, qrValue, printId }) {
 
             {/* CENTER COLUMN - Diploma Text */}
             <div style={{ textAlign: "center", padding: "0 2px", marginTop: 26 }}>
-              <svg viewBox="0 0 300 46" width="100%" height="50" style={{ maxWidth: 320, margin: "0 auto", display: "block" }}>
+              <svg viewBox="0 0 320 46" width="100%" height="50" style={{ maxWidth: 340, margin: "0 auto", display: "block" }}>
                 <defs>
                   <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="1" y2="0%">
                     <stop offset="0%" stopColor="#F6D365" />
@@ -856,19 +856,19 @@ function DiplomaView({ certificate, qrValue, printId }) {
                   </linearGradient>
                 </defs>
                 <polygon points="0,8 20,23 0,38 14,23" fill="#B8860B" />
-                <polygon points="300,8 280,23 300,38 286,23" fill="#B8860B" />
-                <rect x="14" y="4" width="272" height="38" fill="url(#ribbonGrad)" />
+                <polygon points="320,8 300,23 320,38 306,23" fill="#B8860B" />
+                <rect x="14" y="4" width="292" height="38" fill="url(#ribbonGrad)" />
                 <text
-                  x="150"
+                  x="160"
                   y="29"
                   textAnchor="middle"
                   fontSize="18"
                   fontWeight="900"
                   fontFamily="Georgia, 'Times New Roman', serif"
                   fill="#7B1C1C"
-                  letterSpacing="2"
+                  letterSpacing="1.5"
                 >
-                  Diploma
+                  Skill Diploma
                 </text>
               </svg>
 

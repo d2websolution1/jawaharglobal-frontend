@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 // ✅ Import Logos
 import msmeLogo from "../assets/logos/msme.jpg";
 import isoLogo from "../assets/logos/iso.jpg";
-import skillLogo from "../assets/logos/startupindia.png";
 
 const API = import.meta.env.VITE_API_URL || "https://jawaharglobal-backend.onrender.com";
 
@@ -725,24 +724,18 @@ function Hero({ courseCount }) {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left - Content */}
           <div className="text-center lg:text-left">
-            {/* ✅ 3 LOGOS - Top Left, Above Badge */}
-            <div className="flex items-center gap-4 justify-center lg:justify-start mb-3">
+            {/* ✅ LOGOS - MSME & ISO (Skill India removed, size increased) */}
+            <div className="flex items-center gap-4 justify-center lg:justify-start mb-4">
               <img
                 src={msmeLogo}
                 alt="MSME"
-                className="h-14 w-auto object-contain bg-white rounded-md p-1"
+                className="h-16 md:h-20 w-auto object-contain bg-white rounded-lg p-1.5 shadow-md"
                 onError={(e) => { e.target.style.display = 'none'; }}
               />
               <img
                 src={isoLogo}
                 alt="ISO Certified"
-                className="h-14 w-auto object-contain bg-white rounded-md p-1"
-                onError={(e) => { e.target.style.display = 'none'; }}
-              />
-              <img
-                src={skillLogo}
-                alt="Skill India"
-                className="h-14 w-auto object-contain bg-white rounded-md p-1"
+                className="h-16 md:h-20 w-auto object-contain bg-white rounded-lg p-1.5 shadow-md"
                 onError={(e) => { e.target.style.display = 'none'; }}
               />
             </div>
@@ -779,7 +772,7 @@ function Hero({ courseCount }) {
                 to="/verify-diploma"
                 className="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white px-8 py-3.5 rounded-lg font-bold text-sm transition-all duration-300 border border-white/20 backdrop-blur-sm"
               >
-                Verify a Diploma
+                Verify Diploma / Certificate
               </Link>
             </div>
 

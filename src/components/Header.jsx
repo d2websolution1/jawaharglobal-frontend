@@ -99,7 +99,7 @@ const Header = () => {
 
               <div className="flex items-center gap-2">
                 <Mail size={16} />
-                info@jawaharglobalfoundation.org
+                info@jawaharglobalfoundation.in
               </div>
             </div>
 

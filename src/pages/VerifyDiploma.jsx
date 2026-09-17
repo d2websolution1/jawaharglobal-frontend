@@ -72,10 +72,10 @@ export default function VerifyDiploma() {
             <Shield className="w-10 h-10 text-[#F2A93B]" />
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-sora font-extrabold text-white mb-4">
-            Verify a <span className="text-[#F2A93B]">Diploma</span>
+            Verify <span className="text-[#F2A93B]">Diploma / Certificate</span>
           </h1>
           <p className="text-slate-300 text-base md:text-lg max-w-2xl mx-auto">
-            Enter the certificate ID to verify the authenticity of a diploma
+            Enter the certificate or diploma ID to verify its authenticity
           </p>
           <div className="w-20 h-1 bg-[#F2A93B] rounded-full mx-auto mt-6" />
         </div>
@@ -309,7 +309,7 @@ export default function VerifyDiploma() {
             <ol className="space-y-3 text-sm text-gray-600">
               <li className="flex items-start gap-3">
                 <span className="inline-flex items-center justify-center w-6 h-6 bg-[#F2A93B]/10 text-[#F2A93B] rounded-full text-xs font-bold flex-shrink-0 mt-0.5">1</span>
-                Enter the certificate ID from your diploma
+                Enter the ID from your diploma or certificate
               </li>
               <li className="flex items-start gap-3">
                 <span className="inline-flex items-center justify-center w-6 h-6 bg-[#F2A93B]/10 text-[#F2A93B] rounded-full text-xs font-bold flex-shrink-0 mt-0.5">2</span>
