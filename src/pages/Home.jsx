@@ -725,17 +725,17 @@ function Hero({ courseCount }) {
           {/* Left - Content */}
           <div className="text-center lg:text-left">
             {/* ✅ LOGOS - MSME & ISO (Skill India removed, size increased) */}
-            <div className="flex items-center gap-4 justify-center lg:justify-start mb-4">
+            <div className="flex items-center gap-5 justify-center lg:justify-start mb-4">
               <img
                 src={msmeLogo}
                 alt="MSME"
-                className="h-16 md:h-20 w-auto object-contain bg-white rounded-lg p-1.5 shadow-md"
+                className="h-24 md:h-32 w-auto object-contain bg-white rounded-xl p-2 shadow-md"
                 onError={(e) => { e.target.style.display = 'none'; }}
               />
               <img
                 src={isoLogo}
                 alt="ISO Certified"
-                className="h-16 md:h-20 w-auto object-contain bg-white rounded-lg p-1.5 shadow-md"
+                className="h-24 md:h-32 w-auto object-contain bg-white rounded-xl p-2 shadow-md"
                 onError={(e) => { e.target.style.display = 'none'; }}
               />
             </div>
