@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
-  Heart, QrCode, Copy, CheckCircle,
-  Shield, Award, Users, Smartphone
+  Heart, QrCode, Shield, Users, Smartphone
 } from "lucide-react";
 import donationQr from "../assets/donation-qr.jpg";
 
@@ -23,9 +22,7 @@ export default function Donate() {
         console.error("Failed to fetch settings:", error);
         // ✅ Fallback settings
         setSettings({
-          upi_id: "jawaharglobal@upi",
           qr_code_url: donationQr,
-          donation_message: "This donation is eligible for 80G tax exemption.",
         });
       } finally {
         setLoading(false);
@@ -34,23 +31,13 @@ export default function Donate() {
     fetchSettings();
   }, []);
 
-  const [copiedField, setCopiedField] = useState("");
-
-  const handleCopy = (value, field) => {
-    navigator.clipboard.writeText(value);
-    setCopiedField(field);
-    setTimeout(() => setCopiedField(""), 2000);
-  };
-
   // ✅ Use settings data with fallback
-  const upiId = settings?.upi_id || "jawaharglobal@upi";
   const rawQrUrl = settings?.qr_code_url;
   const qrCodeUrl = !rawQrUrl || rawQrUrl === "/assets/qr-code.png"
     ? donationQr
     : rawQrUrl.startsWith("/uploads")
     ? `${API}${rawQrUrl}`
     : rawQrUrl;
-  const donationMessage = settings?.donation_message || "This donation is eligible for 80G tax exemption.";
 
   const stats = [
     { number: "4500+", label: "Students Supported" },
@@ -98,10 +85,6 @@ export default function Donate() {
             <div className="flex items-center gap-2 text-white/80 text-sm bg-white/10 px-4 py-2 rounded-full">
               <Shield className="w-4 h-4 text-[#F2A93B]" />
               <span>100% Secure</span>
-            </div>
-            <div className="flex items-center gap-2 text-white/80 text-sm bg-white/10 px-4 py-2 rounded-full">
-              <Award className="w-4 h-4 text-[#F2A93B]" />
-              <span>80G Tax Exemption</span>
             </div>
             <div className="flex items-center gap-2 text-white/80 text-sm bg-white/10 px-4 py-2 rounded-full">
               <Users className="w-4 h-4 text-[#F2A93B]" />
@@ -159,32 +142,10 @@ export default function Donate() {
                     key={app}
                     className="inline-flex items-center gap-1.5 text-xs font-medium bg-green-50 text-green-700 border border-green-200 px-3 py-1.5 rounded-full"
                   >
-                    <CheckCircle className="w-3.5 h-3.5" />
+                    <Smartphone className="w-3.5 h-3.5" />
                     {app}
                   </span>
                 ))}
-              </div>
-
-              <div className="mt-6 flex items-center justify-center gap-2 bg-gray-50 rounded-xl px-4 py-3">
-                <Smartphone className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                <span className="font-mono text-sm font-semibold text-[#0B2545]">{upiId}</span>
-                <button
-                  onClick={() => handleCopy(upiId, "upi")}
-                  className="ml-auto flex-shrink-0 text-[#C62828] hover:text-[#8E0000] transition"
-                  aria-label="Copy UPI ID"
-                >
-                  {copiedField === "upi" ? (
-                    <CheckCircle className="w-4 h-4" />
-                  ) : (
-                    <Copy className="w-4 h-4" />
-                  )}
-                </button>
-              </div>
-
-              <div className="mt-5 bg-[#F2A93B]/10 border border-[#F2A93B]/20 rounded-xl p-3">
-                <p className="text-xs text-[#0B2545] font-medium">
-                  🔒 {donationMessage}
-                </p>
               </div>
             </div>
           </div>
