@@ -425,13 +425,13 @@ function CertificateView({ certificate, qrValue, printId }) {
                 Jawahar Global Foundation
               </h1>
               <p style={{ fontSize: 15, color: "#0B2545", fontWeight: 700, marginBottom: 4 }}>
-                RZ-1241, TUGHLAKABAD EXTENSION, NEW DELHI 110019
+                RZ-2541, TUGHLAKABAD EXTENSION, NEW DELHI 110019
               </p>
               <p style={{ fontSize: 17, color: "#0B2545", fontWeight: 700, marginBottom: 4 }}>
                 Skill Development &amp; Vocational Training Institute
               </p>
               <p style={{ fontSize: 11.5, color: "#0B2545", fontStyle: "italic", fontWeight: 600, lineHeight: 1.5 }}>
-                Reg. Office: RZ-1241, Tughlakabad Extension, New Delhi - 110019 &nbsp;|&nbsp; Email: info@jawaharglobalfoundation.in &nbsp;|&nbsp; Contact: +91 78384 89517
+                Reg. Office: RZ-2541, Tughlakabad Extension, New Delhi - 110019 &nbsp;|&nbsp; Email: info@jawaharglobalfoundation.in &nbsp;|&nbsp; Contact: +91 78384 89517
               </p>
             </div>
 
@@ -825,13 +825,13 @@ function DiplomaView({ certificate, qrValue, printId }) {
                 Jawahar Global Foundation
               </h1>
               <p style={{ fontSize: 15, color: "#14306b", fontWeight: 700, marginBottom: 4 }}>
-                RZ-1241, TUGHLAKABAD EXTENSION, NEW DELHI 110019
+                RZ-2541, TUGHLAKABAD EXTENSION, NEW DELHI 110019
               </p>
               <p style={{ fontSize: 17, color: "#14306b", fontWeight: 700, marginBottom: 4 }}>
                 Skill Development &amp; Vocational Training Institute
               </p>
               <p style={{ fontSize: 11.5, color: "#14306b", fontStyle: "italic", fontWeight: 600, lineHeight: 1.5 }}>
-                Reg. Office: RZ-1241, Tughlakabad Extension, New Delhi - 110019 &nbsp;|&nbsp; Email: info@jawaharglobalfoundation.in &nbsp;|&nbsp; Contact: +91 78384 89517
+                Reg. Office: RZ-2541, Tughlakabad Extension, New Delhi - 110019 &nbsp;|&nbsp; Email: info@jawaharglobalfoundation.in &nbsp;|&nbsp; Contact: +91 78384 89517
               </p>
             </div>
 

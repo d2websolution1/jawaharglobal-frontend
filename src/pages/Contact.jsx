@@ -73,8 +73,8 @@ export default function Contact() {
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Location",
-      details: "RZ-1241, Tughlakabad Extension, New Delhi – 110019",
-      link: "https://maps.google.com/?q=RZ-1241+Tughlakabad+Extension+New+Delhi+110019",
+      details: "RZ-2541, Tughlakabad Extension, New Delhi – 110019",
+      link: "https://maps.google.com/?q=RZ-2541+Tughlakabad+Extension+New+Delhi+110019",
     },
     {
       icon: <Clock className="w-6 h-6" />,
@@ -404,10 +404,10 @@ export default function Contact() {
                   <div className="w-20 h-20 bg-[#F2A93B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <MapPin className="w-10 h-10 text-[#F2A93B]" />
                   </div>
-                  <p className="text-[#0B2545] font-semibold text-lg">RZ-1241, Tughlakabad Extension</p>
+                  <p className="text-[#0B2545] font-semibold text-lg">RZ-2541, Tughlakabad Extension</p>
                   <p className="text-gray-400 text-sm">New Delhi – 110019, India</p>
                   <a 
-                    href="https://maps.google.com/?q=RZ-1241+Tughlakabad+Extension+New+Delhi+110019" 
+                    href="https://maps.google.com/?q=RZ-2541+Tughlakabad+Extension+New+Delhi+110019" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 mt-3 text-[#F2A93B] font-semibold text-sm hover:gap-3 transition-all duration-300"
