@@ -194,9 +194,11 @@ export default function Certificate() {
   }
 
   const meta = certificate.meta || {};
-  const isDiploma = (meta.certificateType === "diploma" || certificate.displayName === "Diploma");
+  const isDiploma = (certificate.certificateType === "diploma" || meta.certificateType === "diploma" || certificate.displayName === "Diploma");
   const docTypeLabel = isDiploma ? "Diploma" : "Certificate";
-  const liveQrUrl = `${window.location.origin}/certificates/${certificate.certificateNumber || certificate.id}`;
+  const activeDiplomaNumber = certificate.diplomaNumber || meta.diplomaNumber;
+  const activeNumber = isDiploma ? (activeDiplomaNumber || certificate.certificateNumber) : certificate.certificateNumber;
+  const liveQrUrl = `${window.location.origin}/certificates/${activeNumber || certificate.id}`;
 
   return (
     <main className="container mx-auto px-4 py-8 max-w-5xl font-inter">
@@ -243,7 +245,11 @@ export default function Certificate() {
       {/* ── CERTIFICATE CARD DISPLAY ── */}
       <div ref={printRef} className="flex justify-center overflow-x-auto my-4">
         <CertificateCard 
-          certificate={certificate} 
+          certificate={{
+            ...certificate,
+            diplomaNumber: activeDiplomaNumber,
+            certificateType: isDiploma ? "diploma" : "certificate"
+          }} 
           qrValue={liveQrUrl} 
           printId="certificate-print" 
         />
@@ -261,7 +267,7 @@ export default function Certificate() {
             </h3>
           </div>
           <span className="font-mono text-xs font-bold text-gray-600 bg-white border border-gray-200 px-3 py-1 rounded-full">
-            {certificate.certificateNumber}
+            {activeNumber}
           </span>
         </div>
 
@@ -349,7 +355,7 @@ export default function Certificate() {
         </div>
 
         <div className="p-4 bg-gray-50 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
-          <span>This record is cryptographically tied to Certificate #{certificate.certificateNumber}.</span>
+          <span>This record is cryptographically tied to {docTypeLabel} #{activeNumber}.</span>
           <Link
             to="/verify-diploma"
             className="text-[#7B1C1C] font-semibold hover:underline flex items-center gap-1"

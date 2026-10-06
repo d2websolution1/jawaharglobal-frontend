@@ -264,12 +264,12 @@ export default function QRScanner() {
         </div>
 
         <div className="mt-6 bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h3 className="font-semibold text-gray-800 mb-3">Enter Certificate ID Manually</h3>
+          <h3 className="font-semibold text-gray-800 mb-3">Enter Certificate ID or Diploma Number Manually</h3>
           <div className="flex gap-3">
             <input
               type="text"
               id="manualInput"
-              placeholder="e.g., JGF-189312-F75E39"
+              placeholder="e.g., JGF-663920-FD32D8 or JGD-663920-FD32D8"
               className="flex-1 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:border-[#F2A93B] focus:ring-4 focus:ring-[#F2A93B]/10 outline-none transition"
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {

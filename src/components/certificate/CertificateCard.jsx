@@ -690,7 +690,8 @@ function CertificateView({ certificate, qrValue, printId }) {
 function DiplomaView({ certificate, qrValue, printId }) {
   const meta = certificate.meta || {};
   const photoUrl = getPhotoUrl(certificate);
-  const targetId = certificate?.certificateNumber || certificate?.id;
+  const diplomaNumber = certificate?.diplomaNumber || meta?.diplomaNumber || certificate?.certificateNumber || "—";
+  const targetId = diplomaNumber !== "—" ? diplomaNumber : (certificate?.certificateNumber || certificate?.id);
   const baseUrl = typeof window !== "undefined" && window.location.origin ? window.location.origin : "https://jawaharglobal-frontend-4q7wj1eyf-dipak13.vercel.app";
   const qrCodeUrl = qrValue && qrValue.startsWith("http") ? qrValue : `${baseUrl}/certificates/${targetId}`;
 
@@ -921,8 +922,8 @@ function DiplomaView({ certificate, qrValue, printId }) {
                   <span style={{ color: "#111" }}>{enrollmentNo}</span>
                 </p>
                 <p style={{ margin: 0 }}>
-                  <strong style={{ color: "#14306b", fontWeight: 800 }}>Certificate No. :</strong>{" "}
-                  <span style={{ color: "#111" }}>{certificate.certificateNumber}</span>
+                  <strong style={{ color: "#14306b", fontWeight: 800 }}>Diploma Number :</strong>{" "}
+                  <span style={{ color: "#111" }}>{diplomaNumber}</span>
                 </p>
                 <p style={{ margin: 0 }}>
                   <strong style={{ color: "#14306b", fontWeight: 800 }}>Date of Issue :</strong>{" "}
@@ -1061,7 +1062,7 @@ function DiplomaView({ certificate, qrValue, printId }) {
               flexShrink: 0,
             }}
           >
-            This diploma may be verified online using Diploma No. {certificate.certificateNumber}
+            This diploma may be verified online using Diploma No. {diplomaNumber}
           </div>
         </div>
       </div>
@@ -1103,6 +1104,7 @@ export default function CertificateCard({ certificate, qrValue, printId = "certi
   if (!certificate) return null;
 
   const isDiploma =
+    certificate?.certificateType === "diploma" ||
     certificate?.meta?.certificateType === "diploma" ||
     certificateName.toLowerCase() === "diploma";
 

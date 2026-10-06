@@ -13,6 +13,7 @@ export default function AdminCertificatePreview() {
   const [loading, setLoading] = useState(true);
   const [photoError, setPhotoError] = useState(false);
   const [certificateName, setCertificateName] = useState("Diploma");
+  const [selectedType, setSelectedType] = useState(null); // 'certificate' | 'diploma'
 
   // ✅ Fetch certificate name from settings
   useEffect(() => {
@@ -97,13 +98,30 @@ export default function AdminCertificatePreview() {
     }
   }
 
+  const docType = selectedType || (
+    meta.certificateType === "diploma" || certificateName.toLowerCase() === "diploma"
+      ? "diploma"
+      : "certificate"
+  );
+  const isDiploma = docType === "diploma";
+  const activeDiplomaNumber = certificate.diplomaNumber || meta.diplomaNumber;
+  const activeCertificateNumber = certificate.certificateNumber;
+  const currentNumber = isDiploma ? (activeDiplomaNumber || activeCertificateNumber) : activeCertificateNumber;
+  const currentDisplayName = isDiploma ? "Diploma" : "Certificate";
+
   const displayCertificate = {
+    ...certificate,
     id: certificate.id,
-    certificateNumber: certificate.certificateNumber,
+    certificateNumber: activeCertificateNumber,
+    diplomaNumber: activeDiplomaNumber,
+    certificateType: docType,
     fullName: certificate.fullName,
     courseSlug: certificate.courseSlug,
     issuedAt: certificate.issuedAt,
     meta: {
+      ...meta,
+      certificateType: docType,
+      diplomaNumber: activeDiplomaNumber,
       courseTitle: meta.courseTitle || certificate.courseSlug,
       signatoryName: meta.signatoryName || "Director, Jawahar Global Foundation",
       guardianRelation: meta.guardianRelation || "S/O",
@@ -121,30 +139,56 @@ export default function AdminCertificatePreview() {
 
   return (
     <AdminLayout 
-      title={`${certificateName} Preview`} 
-      subtitle={`Print or download this ${certificateName.toLowerCase()}`}
+      title={`${currentDisplayName} Preview`} 
+      subtitle={`Print or download this ${currentDisplayName.toLowerCase()}`}
     >
-      <div className="flex items-center justify-between mb-6 print:hidden">
+      <div className="flex items-center justify-between mb-6 print:hidden flex-wrap gap-4">
         <div>
-          <h2 className="text-2xl font-extrabold text-gray-900">{certificateName} Preview</h2>
-          <p className="text-sm text-gray-500">Print or save the {certificateName.toLowerCase()} as PDF for the student.</p>
+          <h2 className="text-2xl font-extrabold text-gray-900">{currentDisplayName} Preview</h2>
+          <p className="text-sm text-gray-500">Print or save the {currentDisplayName.toLowerCase()} as PDF for the student.</p>
         </div>
-        <button
-          onClick={() => window.print()}
-          className="bg-[#7B1C1C] hover:bg-[#5f1515] text-white font-bold px-4 py-2 rounded-lg"
-        >
-          Print / Save PDF
-        </button>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-xl">
+            <button
+              type="button"
+              onClick={() => setSelectedType("certificate")}
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                !isDiploma
+                  ? "bg-[#0B2545] text-white shadow-sm"
+                  : "text-gray-600 hover:text-gray-900"
+              }`}
+            >
+              Certificate View
+            </button>
+            <button
+              type="button"
+              onClick={() => setSelectedType("diploma")}
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                isDiploma
+                  ? "bg-purple-700 text-white shadow-sm"
+                  : "text-gray-600 hover:text-gray-900"
+              }`}
+            >
+              Skill Diploma View
+            </button>
+          </div>
+          <button
+            onClick={() => window.print()}
+            className="bg-[#7B1C1C] hover:bg-[#5f1515] text-white font-bold px-4 py-2 rounded-lg text-sm"
+          >
+            Print / Save PDF
+          </button>
+        </div>
       </div>
 
       <CertificateCard
         certificate={displayCertificate}
-        qrValue={`${typeof window !== 'undefined' ? window.location.origin : ''}/certificates/${certificate.certificateNumber || certificate.id}`}
+        qrValue={`${typeof window !== 'undefined' ? window.location.origin : ''}/certificates/${currentNumber || certificate.id}`}
         printId="certificate-print"
       />
 
       <p className="mt-5 text-xs text-gray-400 text-center print:hidden">
-        {certificateName} ID: {certificate.certificateNumber} · Issued by Jawahar Global Foundation
+        {currentDisplayName} No.: {currentNumber} · Issued by Jawahar Global Foundation
       </p>
 
       <style>{`

@@ -881,7 +881,14 @@ export default function AdminCertificatesNew() {
                           </span>
                         </div>
                       </td>
-                      <td className="p-4 font-mono text-xs text-gray-700">{c.certificateNumber}</td>
+                      <td className="p-4 font-mono text-xs text-gray-700">
+                        <div><span className="text-[10px] font-bold text-gray-400">CERT:</span> {c.certificateNumber}</div>
+                        {(c.diplomaNumber || c.meta?.diplomaNumber) && (
+                          <div className="text-purple-700 font-medium">
+                            <span className="text-[10px] font-bold text-purple-400">DIPLOMA:</span> {c.diplomaNumber || c.meta?.diplomaNumber}
+                          </div>
+                        )}
+                      </td>
                       <td className="p-4 font-semibold text-gray-800">{c.fullName}</td>
                       <td className="p-4 text-gray-600 text-xs">{c.courseSlug}</td>
                       <td className="p-4 text-gray-500 text-xs">{c.issuedAt ? new Date(c.issuedAt).toLocaleDateString() : "-"}</td>

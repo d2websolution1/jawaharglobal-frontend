@@ -90,15 +90,15 @@ export default function VerifyDiploma() {
               <FileCheck className="w-5 h-5 text-[#F2A93B]" />
             </div>
             <div>
-              <h2 className="font-sora font-bold text-[#0B2545] text-lg">Verify Certificate</h2>
-              <p className="text-gray-500 text-sm">Enter the unique certificate ID below</p>
+              <h2 className="font-sora font-bold text-[#0B2545] text-lg">Verify Certificate / Diploma</h2>
+              <p className="text-gray-500 text-sm">Enter the certificate ID or diploma number below</p>
             </div>
           </div>
 
           <form onSubmit={handleVerify} className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
               <label htmlFor="certificateId" className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
-                Certificate ID *
+                Certificate ID / Diploma Number *
               </label>
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -107,7 +107,7 @@ export default function VerifyDiploma() {
                   type="text"
                   value={certificateId}
                   onChange={(e) => setCertificateId(e.target.value)}
-                  placeholder="e.g., JGF-189312-F75E39"
+                  placeholder="e.g., JGF-663920-FD32D8 or JGD-663920-FD32D8"
                   className="w-full pl-12 pr-12 py-3.5 border-2 border-gray-200 rounded-xl focus:border-[#F2A93B] focus:ring-4 focus:ring-[#F2A93B]/10 outline-none transition-all duration-300 bg-gray-50/50"
                   disabled={loading}
                 />
@@ -159,143 +159,153 @@ export default function VerifyDiploma() {
         </div>
 
         {/* Result Section */}
-        {result && result.isValid && result.data && (
-          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8 animate-fadeIn">
-            <div className="p-6 md:p-8 bg-gradient-to-r from-green-50 to-emerald-50 border-b border-green-200">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-green-500/20 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-8 h-8 text-green-600" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-sora font-extrabold text-green-700">
-                    ✅ Valid Certificate
-                  </h2>
-                  <p className="text-sm text-green-600">
-                    This certificate is authentic and verified
-                  </p>
-                </div>
-              </div>
-            </div>
+        {result && result.isValid && result.data && (() => {
+          const isDiploma = result.data.certificateType === "diploma" || result.data.displayName === "Diploma" || (result.data.meta?.certificateType === "diploma");
+          const docLabel = isDiploma ? "Diploma" : "Certificate";
+          const docNumber = isDiploma 
+            ? (result.data.diplomaNumber || result.data.meta?.diplomaNumber || result.data.displayNumber || result.data.verificationId || certificateId)
+            : (result.data.certificateNumber || result.data.displayNumber || result.data.verificationId || certificateId);
+          const viewTarget = docNumber || result.data.id;
 
-            <div className="p-6 md:p-8 lg:p-10">
-              <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-                <h3 className="text-lg font-sora font-bold text-[#0B2545] flex items-center gap-2">
-                  <Award className="w-5 h-5 text-[#F2A93B]" />
-                  Certificate Details
-                </h3>
-                
-                <Link
-                  to={`/certificates/${result.data.id || result.data.certificateNumber || certificateId}`}
-                  className="inline-flex items-center gap-2 bg-[#0B2545] hover:bg-[#1a3a6e] text-white font-bold px-5 py-2.5 rounded-xl transition-all duration-300 shadow-lg hover:shadow-[#0B2545]/30 text-sm"
-                >
-                  <Eye className="w-4 h-4" />
-                  Show Certificate
-                </Link>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-5">
-                  <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
-                    <User className="w-5 h-5 text-[#F2A93B] flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Student Name</p>
-                      <p className="text-gray-800 font-semibold text-lg">{result.data.fullName || "N/A"}</p>
-                    </div>
+          return (
+            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8 animate-fadeIn">
+              <div className="p-6 md:p-8 bg-gradient-to-r from-green-50 to-emerald-50 border-b border-green-200">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 bg-green-500/20 rounded-full flex items-center justify-center">
+                    <CheckCircle className="w-8 h-8 text-green-600" />
                   </div>
+                  <div>
+                    <h2 className="text-2xl font-sora font-extrabold text-green-700">
+                      ✅ Valid {docLabel}
+                    </h2>
+                    <p className="text-sm text-green-600">
+                      This {docLabel.toLowerCase()} is authentic and verified
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-6 md:p-8 lg:p-10">
+                <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+                  <h3 className="text-lg font-sora font-bold text-[#0B2545] flex items-center gap-2">
+                    <Award className="w-5 h-5 text-[#F2A93B]" />
+                    {docLabel} Details
+                  </h3>
                   
-                  <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
-                    <Award className="w-5 h-5 text-[#F2A93B] flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Course</p>
-                      <p className="text-gray-800 font-semibold">
-                        {result.data.meta?.courseTitle || result.data.courseTitle || result.data.courseslug || "N/A"}
-                      </p>
+                  <Link
+                    to={`/certificates/${viewTarget}`}
+                    className="inline-flex items-center gap-2 bg-[#0B2545] hover:bg-[#1a3a6e] text-white font-bold px-5 py-2.5 rounded-xl transition-all duration-300 shadow-lg hover:shadow-[#0B2545]/30 text-sm"
+                  >
+                    <Eye className="w-4 h-4" />
+                    Show {docLabel}
+                  </Link>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-5">
+                    <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
+                      <User className="w-5 h-5 text-[#F2A93B] flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Student Name</p>
+                        <p className="text-gray-800 font-semibold text-lg">{result.data.fullName || "N/A"}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
+                      <Award className="w-5 h-5 text-[#F2A93B] flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Course</p>
+                        <p className="text-gray-800 font-semibold">
+                          {result.data.meta?.courseTitle || result.data.courseTitle || result.data.courseslug || "N/A"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
+                      <User className="w-5 h-5 text-[#F2A93B] flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Guardian</p>
+                        <p className="text-gray-800 font-semibold">
+                          {result.data.meta?.guardianName 
+                            ? `${result.data.meta.guardianRelation || ''} ${result.data.meta.guardianName}` 
+                            : "N/A"}
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
-                    <User className="w-5 h-5 text-[#F2A93B] flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Guardian</p>
-                      <p className="text-gray-800 font-semibold">
-                        {result.data.meta?.guardianName 
-                          ? `${result.data.meta.guardianRelation || ''} ${result.data.meta.guardianName}` 
-                          : "N/A"}
-                      </p>
+                  <div className="space-y-5">
+                    <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
+                      <Calendar className="w-5 h-5 text-[#F2A93B] flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Date of Birth</p>
+                        <p className="text-gray-800 font-semibold">
+                          {result.data.meta?.dob 
+                            ? new Date(result.data.meta.dob).toLocaleDateString('en-IN', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric'
+                              }) 
+                            : "N/A"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
+                      <Building className="w-5 h-5 text-[#F2A93B] flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                          {isDiploma ? "Diploma Number" : "Certificate ID"}
+                        </p>
+                        <p className="text-gray-800 font-mono text-sm font-bold">
+                          {docNumber}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
+                      <Award className="w-5 h-5 text-[#F2A93B] flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Duration & Grade</p>
+                        <p className="text-gray-800 font-semibold">
+                          {result.data.meta?.duration || "N/A"} • Grade: {result.data.meta?.grade || "N/A"}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="space-y-5">
-                  <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
-                    <Calendar className="w-5 h-5 text-[#F2A93B] flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Date of Birth</p>
-                      <p className="text-gray-800 font-semibold">
-                        {result.data.meta?.dob 
-                          ? new Date(result.data.meta.dob).toLocaleDateString('en-IN', {
-                              day: 'numeric',
-                              month: 'long',
-                              year: 'numeric'
-                            }) 
-                          : "N/A"}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
-                    <Building className="w-5 h-5 text-[#F2A93B] flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Certificate ID</p>
-                      <p className="text-gray-800 font-mono text-sm font-bold">
-                        {result.data.certificateNumber || result.data.verificationId || certificateId}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
-                    <Award className="w-5 h-5 text-[#F2A93B] flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Duration & Grade</p>
-                      <p className="text-gray-800 font-semibold">
-                        {result.data.meta?.duration || "N/A"} • Grade: {result.data.meta?.grade || "N/A"}
-                      </p>
-                    </div>
-                  </div>
+                <div className="mt-8 flex justify-end">
+                  <Link
+                    to={`/certificates/${viewTarget}`}
+                    className="flex items-center justify-center gap-2 bg-[#F2A93B] hover:bg-[#e0993a] text-[#0B2545] font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg"
+                  >
+                    <Eye className="w-5 h-5" />
+                    View Full {docLabel}
+                    <span className="text-sm">→</span>
+                  </Link>
                 </div>
-              </div>
 
-              {/* ✅ QR CODE SECTION REMOVED - Only "View Full Certificate" button remains */}
-              <div className="mt-8 flex justify-end">
-                <Link
-                  to={`/certificates/${result.data.id || result.data.certificateNumber || certificateId}`}
-                  className="flex items-center justify-center gap-2 bg-[#F2A93B] hover:bg-[#e0993a] text-[#0B2545] font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg"
-                >
-                  <Eye className="w-5 h-5" />
-                  View Full Certificate
-                  <span className="text-sm">→</span>
-                </Link>
-              </div>
-
-              {/* Verification Badge */}
-              <div className="mt-6 p-4 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl flex items-center gap-3">
-                <div className="relative">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-ping absolute" />
-                  <div className="w-3 h-3 bg-green-500 rounded-full relative" />
+                {/* Verification Badge */}
+                <div className="mt-6 p-4 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl flex items-center gap-3">
+                  <div className="relative">
+                    <div className="w-3 h-3 bg-green-500 rounded-full animate-ping absolute" />
+                    <div className="w-3 h-3 bg-green-500 rounded-full relative" />
+                  </div>
+                  <span className="text-green-700 font-medium text-sm">
+                    ✅ Verified on {new Date().toLocaleString('en-IN', {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })}
+                  </span>
                 </div>
-                <span className="text-green-700 font-medium text-sm">
-                  ✅ Verified on {new Date().toLocaleString('en-IN', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                  })}
-                </span>
               </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* Instructions */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">

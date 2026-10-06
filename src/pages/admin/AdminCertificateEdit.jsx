@@ -36,6 +36,7 @@ export default function AdminCertificateEdit() {
     email: "",
     photo: null,
     certificateType: "certificate",
+    diplomaNumber: "",
   });
 
   useEffect(() => {
@@ -67,6 +68,7 @@ export default function AdminCertificateEdit() {
         email: data.email || "",
         photo: null,
         certificateType: data.meta?.certificateType || (data.displayName === 'Diploma' ? 'diploma' : 'certificate') || 'certificate',
+        diplomaNumber: data.diplomaNumber || data.meta?.diplomaNumber || "",
       });
       if (data.meta?.photoUrl) {
         setPhotoPreview(data.meta.photoUrl);
@@ -98,6 +100,7 @@ export default function AdminCertificateEdit() {
         branchCode: form.branchCode,
         place: form.place,
         certificateType: form.certificateType,
+        diplomaNumber: form.diplomaNumber,
       };
 
       if (photoPreview && !photoPreview.startsWith('blob:')) {
@@ -112,6 +115,7 @@ export default function AdminCertificateEdit() {
         enrollmentNumber: form.enrollmentNumber,
         email: form.email,
         issuedAt: form.issuedAt,
+        diplomaNumber: form.diplomaNumber,
         meta: meta,
       };
 
@@ -191,6 +195,19 @@ export default function AdminCertificateEdit() {
                 <option value="certificate">Certificate (Certificate of Completion)</option>
                 <option value="diploma">Diploma</option>
               </select>
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-gray-600 uppercase tracking-wider flex items-center gap-1">
+                <FileCheck className="w-3.5 h-3.5" />
+                Diploma Number
+              </label>
+              <input
+                value={form.diplomaNumber}
+                onChange={(e) => setForm({ ...form, diplomaNumber: e.target.value })}
+                placeholder="e.g. JGD-663920-FD32D8"
+                className="mt-1.5 w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#C62828]/20 focus:border-[#C62828] transition"
+              />
             </div>
 
             <div>
