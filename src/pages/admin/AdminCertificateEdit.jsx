@@ -4,7 +4,7 @@ import { adminApi, resolveMediaUrl } from "../../lib/adminApi";
 import AdminLayout from "../../components/admin/AdminLayout";
 import { 
   Save, ArrowLeft, Loader2, AlertCircle, CheckCircle,
-  User, Mail, BookOpen, FileText, Calendar, Award
+  User, Mail, BookOpen, FileText, Calendar, Award, FileCheck
 } from "lucide-react";
 
 export default function AdminCertificateEdit() {
